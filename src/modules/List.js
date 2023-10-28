@@ -1,11 +1,10 @@
 class List{
     constructor(name){
         this.name=name;
-        this.tasks=[];
+        this.tasks=new Array;
     }
     add=(t)=>{
         this.tasks.push(t);
-        return t;
     }
 }
 

@@ -1,11 +1,11 @@
 class Task{
-    constructor(description,date){
-        this.description=description;
-        this.date=date;
-    }
 
+    constructor(description){
+        this.description=description;
+        this.isDone=false;
+    }
     toString=()=>{
-        return  this.description+" "+this.date;
+        return  this.description;
     }
 };
 

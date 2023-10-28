@@ -47,6 +47,9 @@ table {
     border-spacing: 0;
 }
 
+/*CSS reset end */
+
+
 body{
     background-color: rgb(236, 236, 236);
     display: flex;
@@ -69,7 +72,7 @@ body{
     right: 0;
     
 }
-#currentList.active{
+#currentList.active,#formList.active{
     background-color: grey;
     position: fixed;
     z-index: 1;
@@ -118,10 +121,4 @@ form{
 
 
 
-#formList.active{
-    display: block;
-    height: 5rem;
-    width: 5rem;
-    background-color: red;
-}
 
