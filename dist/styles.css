@@ -48,7 +48,9 @@ table {
 }
 
 /*CSS reset end */
-
+:root{
+    --colorTasks:rgb(201, 201, 201);
+}
 
 body{
     background-color: rgb(236, 236, 236);
@@ -72,8 +74,8 @@ body{
     right: 0;
     
 }
-#currentList.active,#formList.active{
-    background-color: grey;
+#formCreateList.active{
+    background-color: var(--colorTasks);
     position: fixed;
     z-index: 1;
     width: fit-content;
@@ -88,34 +90,109 @@ body{
     margin: auto;
     overflow: scroll;
 }
-.task{
-    background-color: rgb(201, 201, 201);
-    padding: 1rem;
+
+form{
+    display: flex;
+}
+
+
+
+.list{
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    min-height: 10rem;
+    width: fit-content;
+    background-color: rgb(190, 190, 190);
+    min-width:10rem;
+    transition: 0.3s;
+}
+.tasks{
+    background-color: var(--colorTasks);
     display: flex;
     gap: 1rem;
-
+    display: block;
     color: black;
     width: fit-content;
     min-width:5rem;
     border-bottom: 1px solid black;
 }
-form{
-    display: flex;
-}
-.task p{
-    background-color: white;
-}
 
-.list{
-    border: 1px solid black;
-    height: 20rem;
+
+
+.list:hover{
+    background-color: rgb(190, 190, 190);
+    cursor: pointer;
+    letter-spacing: 0.05rem;
+}
+.currentList:hover{
+    cursor: default;
+    background-color: var(--colorTasks);
+    letter-spacing: 0rem;
+}
+.currentList{
+    display: grid;
+    grid-template-rows: 1fr 3fr;
+    grid-template-columns: 1fr;
+
+    justify-content: left;
+    flex-direction: row;
+    background-color: rgb(201, 201, 201);;
+    font-size: 0.8rem;
+    z-index: 1;
+    scale: 3;
     width: fit-content;
-    background-color: grey;
-    min-width:10rem;
+    min-height: 10rem;
+    min-width:15rem;
+    border-radius: 5px;
+
+    box-shadow: 0 0 10px black;
+    flex-direction: column;
+    margin: auto;
+}
+.currentList input[type="checkbox"]{
+    display: block;
+}
+.currentList .title{
+    background-color: red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    box-shadow: 0px 0px 5px black;
+}
+.currentList .tasks{
+    height: 100%;
+    width: 100%;
+    overflow-y: auto;
+}
+.currentList .tasks p{
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    grid-template-rows: 1fr;
+}
+#formCreateTask{
+    display: none;
+}
+.currentList #formCreateTask{
+    display: block;
 }
 
 
-#formList, #overlay,#currentList{
+input[type="checkbox"]{
+    display: none;
+}
+#lists{
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+
+#formCreateList, #overlay{
     display: none;
 }
 

@@ -4,7 +4,8 @@ class Task{
         this.description=description;
         this.isDone=false;
     }
-    toString=()=>{
+    
+    getDescription=()=>{
         return  this.description;
     }
 };
