@@ -106,27 +106,29 @@ form{
     border: 1px solid black;
     min-height: 10rem;
     width: fit-content;
-    background-color: rgb(190, 190, 190);
+    background-color: var(--colorTasks);
     min-width:10rem;
     transition: 0.3s;
 }
 .tasks{
-    background-color: var(--colorTasks);
     display: flex;
     gap: 1rem;
     display: block;
     color: black;
     width: fit-content;
     min-width:5rem;
-    border-bottom: 1px solid black;
+    border-top: 1px solid black;
 }
 
 
 
 .list:hover{
-    background-color: rgb(190, 190, 190);
+    background-color: rgb(231, 231, 231);
     cursor: pointer;
     letter-spacing: 0.05rem;
+}
+.list:active{
+    box-shadow: inset 0 0 5px black;
 }
 .currentList:hover{
     cursor: default;
@@ -140,7 +142,7 @@ form{
 
     justify-content: left;
     flex-direction: row;
-    background-color: rgb(201, 201, 201);;
+    background-color: var(--colorTasks);;
     font-size: 0.8rem;
     z-index: 1;
     scale: 3;
@@ -163,6 +165,10 @@ form{
     align-items: center;
     height: 100%;
     box-shadow: 0px 0px 5px black;
+    font-size: 0.9rem;
+}
+.title{
+    font-size: 1.5rem;
 }
 .currentList .tasks{
     height: 100%;

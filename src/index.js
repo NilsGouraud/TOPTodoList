@@ -14,16 +14,16 @@ buttonCreateNewList.onclick=()=>{
     overlay.classList.add("active");
 }
 buttonAddTask.onclick=()=>{
-    const taskToAdd=document.getElementById("description").value;
-    if(taskToAdd.value!=""){
+    let form=document.getElementById("description");
+    let taskToAdd=form.value
+    if(taskToAdd!=""){
         const currentList=getCurrentList();
         currentList.add(new Task(taskToAdd));
-        console.log(currentList);
         getCurrentTasksDom().innerHTML="";
         getTasksDom(currentList).forEach(element => {
             getCurrentTasksDom().append(element);
         });
-         console.log(getCurrentList);
+        form.value="";
         return;
     }
     alert("the task field is empty")
@@ -85,8 +85,6 @@ const showTitle=(list)=>{
 const getTasksDom=(list)=>{
     const tasks=[];
     let i=1;
-    console.log(list.tasks);
-
     for(const task of list.tasks){
         let t=document.createElement("p");
         let checkbox=document.createElement("input");
@@ -95,7 +93,6 @@ const getTasksDom=(list)=>{
 
         checkbox.onclick=()=>{
             list.remove(task);
-            console.log("checkbox clicked")
             t.remove();
         }
         t.append(checkbox,task.description);
