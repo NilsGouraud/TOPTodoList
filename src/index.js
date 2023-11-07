@@ -1,6 +1,5 @@
 import { Task } from "./modules/Task";
 import { List } from "./modules/List";
-import { createPopper } from "@popperjs/core";
 
 const formCreateTask=document.getElementById("formCreateTask");
 const listsDisplay=document.getElementById("lists");
@@ -15,17 +14,19 @@ buttonCreateNewList.onclick=()=>{
 }
 buttonAddTask.onclick=()=>{
     let form=document.getElementById("description");
-    let taskToAdd=form.value
+    let taskToAdd=form.value;
+    console.log(taskToAdd);
     if(taskToAdd!=""){
-        const currentList=getCurrentList();
+        const currentList=getCurrentListFromDom();
         currentList.add(new Task(taskToAdd));
-        getCurrentTasksDom().innerHTML="";
-        getTasksDom(currentList).forEach(element => {
-            getCurrentTasksDom().append(element);
+        getTasksDom().innerHTML="";
+        createTasksDom(currentList).forEach(element => {
+            getTasksDom().append(element);
         });
         form.value="";
         return;
     }
+    console.log(taskToAdd);
     alert("the task field is empty")
 
 }
@@ -58,7 +59,7 @@ const createLists=()=>{
         makeSelectable(divList);
         const tasks=document.createElement("div");
         tasks.classList.add("tasks");
-        getTasksDom(l).forEach(element => {
+        createTasksDom(l).forEach(element => {
             tasks.append(element)
         });
         divList.append(showTitle(l),tasks);
@@ -82,32 +83,41 @@ const showTitle=(list)=>{
     listTitle.textContent=list.title
     return listTitle;
 }
-const getTasksDom=(list)=>{
+const createTasksDom=(list)=>{
+    const thisVeryList=list;
     const tasks=[];
-    let i=1;
     for(const task of list.tasks){
         let t=document.createElement("p");
         let checkbox=document.createElement("input");
-        
+        t.onclick=()=>{
+            //console.log(thisVeryList.tasks);
+        }
         checkbox.type="checkbox";
 
+     
         checkbox.onclick=()=>{
-            list.remove(task);
+            const index=list.tasks.indexOf(task);
+            list.tasks.splice(index,1);
+            //getCurrentListFromDom().splice(index,1);
             t.remove();
+            console.log(getCurrentListFromDom().tasks);
         }
+
         t.append(checkbox,task.description);
         tasks.push(t);
+
+
     }
     return tasks;
 }
 
-const getCurrentList=()=>{
+const getCurrentListFromDom=()=>{
     const domListTitle=document.querySelector(".currentList .title");
     const currentTitle=domListTitle.textContent;
     const currentList=lists.filter(list=>list.title==currentTitle);
     return currentList[0];
 }
-const getCurrentTasksDom=()=>{
+const getTasksDom=()=>{
     const domTasks=document.querySelector(".currentList .tasks");
     return domTasks;
 }
