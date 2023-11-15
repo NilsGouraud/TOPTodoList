@@ -6,11 +6,22 @@ const listsDisplay=document.getElementById("lists");
 const overlay=document.getElementById("overlay");
 const formCreateList=document.getElementById("formCreateList");
 const buttonCreateNewList=document.getElementById("buttonCreateNewList");
+const buttonAddToLists=document.getElementById("buttonAddToLists");
 const buttonAddTask=document.getElementById("buttonAddTask");
-const inputTask=document.getElementById("inputTask")
+const inputTask=document.getElementById("inputTask");
+
 buttonCreateNewList.onclick=()=>{
     formCreateList.classList.add("active");
     overlay.classList.add("active");
+}
+buttonAddToLists.onclick=()=>{
+    let listName=document.getElementById("inputTask").value;
+    lists.push(new List(listName));
+    createLists();
+
+    formCreateList.classList.remove("active");
+    overlay.classList.remove("active");
+
 }
 buttonAddTask.onclick=()=>{
     let form=document.getElementById("description");
@@ -28,8 +39,8 @@ buttonAddTask.onclick=()=>{
     }
     console.log(taskToAdd);
     alert("the task field is empty")
-
 }
+
 overlay.onclick=()=>{
     formCreateList.classList.remove("active");
     overlay.classList.remove("active");
@@ -49,7 +60,6 @@ listOne.add(taskOne);
 listOne.add(taskTwo);
 lists.push(listOne);
 lists.push(listTwo);
-
 
 const createLists=()=>{
     listsDisplay.innerHTML="";
@@ -93,8 +103,6 @@ const createTasksDom=(list)=>{
             //console.log(thisVeryList.tasks);
         }
         checkbox.type="checkbox";
-
-     
         checkbox.onclick=()=>{
             const index=list.tasks.indexOf(task);
             list.tasks.splice(index,1);
@@ -102,11 +110,8 @@ const createTasksDom=(list)=>{
             t.remove();
             console.log(getCurrentListFromDom().tasks);
         }
-
         t.append(checkbox,task.description);
         tasks.push(t);
-
-
     }
     return tasks;
 }
@@ -121,5 +126,4 @@ const getTasksDom=()=>{
     const domTasks=document.querySelector(".currentList .tasks");
     return domTasks;
 }
-
 createLists();

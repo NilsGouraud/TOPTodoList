@@ -72,23 +72,10 @@ body{
     bottom: 0;
     left: 0;
     right: 0;
-    
+    scale: 1;   
 }
 #formCreateList.active{
-    background-color: var(--colorTasks);
-    position: fixed;
-    z-index: 1;
-    width: fit-content;
-    top: 10%;
-    bottom: 10%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1rem;
-    box-shadow: 0 0 10px black;
-    flex-direction: column;
-    margin: auto;
-    overflow: scroll;
+    scale: 3;
 }
 
 form{
@@ -166,10 +153,13 @@ form{
     height: 100%;
     box-shadow: 0px 0px 5px black;
     font-size: 0.9rem;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 .title{
     font-size: 1.5rem;
 }
+
 .currentList .tasks{
     height: 100%;
     width: 100%;
@@ -198,10 +188,32 @@ input[type="checkbox"]{
 }
 
 
-#formCreateList, #overlay{
-    display: none;
+#overlay{
+    scale: 0;
+    transition: 0.3s;
 }
 
 
+#formCreateList{
+    scale: 0;
+    transition: 0.3s;
+
+    background-color: var(--colorTasks);
+    position: fixed;
+    z-index: 1;
+    width: fit-content;
+    top: 40%;
+    bottom: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    box-shadow: 0 0 10px black;
+    flex-direction: column;
+    margin: auto;
+    overflow-y: auto;
+    overflow-x: auto;
+    border-radius: 5px;
+}
 
 
