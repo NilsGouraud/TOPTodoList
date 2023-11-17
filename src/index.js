@@ -18,10 +18,10 @@ buttonAddToLists.onclick=()=>{
     let listName=document.getElementById("inputTask").value;
     lists.push(new List(listName));
     createLists();
-
+    localStorage.setItem("lists",JSON.stringify(lists));
     formCreateList.classList.remove("active");
     overlay.classList.remove("active");
-
+    
 }
 buttonAddTask.onclick=()=>{
     let form=document.getElementById("description");
@@ -35,6 +35,7 @@ buttonAddTask.onclick=()=>{
             getTasksDom().append(element);
         });
         form.value="";
+        localStorage.setItem("lists",JSON.stringify(lists));
         return;
     }
     console.log(taskToAdd);
@@ -50,16 +51,26 @@ overlay.onclick=()=>{
 }
 
 
-const lists=[];
+let lists=[];
+if(localStorage.getItem("lists")!=null){
+    console.log(localStorage.getItem("lists"));
+    JSON.parse(localStorage.getItem("lists")).forEach(stuff=>{
+        let tasks=stuff.tasks;
+        let list=new List(stuff.title);
+        tasks.forEach(task=>{
+            list.add(task);
+        });
+        lists.push(list);
+        
+        console.log(list)
+    });
+    console.log(JSON.parse(localStorage.getItem("lists")));
+}
 const listOne=new List("list one");
 const listTwo=new List("list two");
 
 const taskOne=new Task("nothing to do yet")
 const taskTwo=new Task("same")
-listOne.add(taskOne);
-listOne.add(taskTwo);
-lists.push(listOne);
-lists.push(listTwo);
 
 const createLists=()=>{
     listsDisplay.innerHTML="";
@@ -81,6 +92,9 @@ const makeSelectable=(list)=>{
     list.onclick=()=>{
         list.classList.add("currentList"); 
         overlay.classList.add("active");
+        if(document.querySelector(".currentList")==null){
+            overlay.classList.remove("active");
+        }
         if(document.querySelector(".currentList #formCreateTask")==null){
             const tasks=list.getElementsByClassName("tasks");
             tasks[0].append(formCreateTask)
@@ -90,7 +104,24 @@ const makeSelectable=(list)=>{
 const showTitle=(list)=>{
     const listTitle=document.createElement("div");
     listTitle.classList.add("title");
-    listTitle.textContent=list.title
+    
+    const dummy=document.createElement("div");
+    dummy.id="dummy";
+    const text=document.createElement("p");
+    const bin=document.createElement("div");
+    bin.id="bin";
+    bin.onclick=()=>{
+        if(confirm("are you sure you want to delete the list '"+list.title+"'?")){
+            lists.splice(lists.indexOf(list));
+            localStorage.setItem("lists",JSON.stringify(lists));
+            createLists();
+            overlay.classList.remove("active");
+        };
+        
+        
+    }
+    text.textContent=list.title
+    listTitle.append(dummy,text,bin);
     return listTitle;
 }
 const createTasksDom=(list)=>{
@@ -109,6 +140,7 @@ const createTasksDom=(list)=>{
             //getCurrentListFromDom().splice(index,1);
             t.remove();
             console.log(getCurrentListFromDom().tasks);
+            localStorage.setItem("lists",JSON.stringify(lists));
         }
         t.append(checkbox,task.description);
         tasks.push(t);
@@ -127,3 +159,4 @@ const getTasksDom=()=>{
     return domTasks;
 }
 createLists();
+localStorage.setItem("lists",JSON.stringify(lists));
